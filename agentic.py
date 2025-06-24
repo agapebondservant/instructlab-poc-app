@@ -69,7 +69,7 @@ class AgenticWorkflow():
         config = {"configurable": {"thread_id": 12, "recursion_limit": 10}}
         try:
             for event in self.graph.stream({"messages": [HumanMessage(content=prompt)]}, config, stream_mode="values"):
-                response_content = event['messages'][-1]
+                response_content = event['messages'][-1].content
                 st.markdown(response_content)
                 st.session_state.messages2.append({"role": "assistant", "content": response_content})
         except Exception as e:
