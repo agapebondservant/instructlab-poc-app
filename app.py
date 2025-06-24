@@ -6,6 +6,7 @@ from langchain.schema import HumanMessage
 from io import StringIO
 from agentic import AgenticWorkflow
 from dotenv import load_dotenv
+import traceback
 
 st.set_page_config(page_title="Simple GenAI App", page_icon="🤖")
 
@@ -39,7 +40,7 @@ with tab1:
         with st.chat_message("user"):
             st.markdown(prompt)
         
-        with st.chat_message("assistant"):
+        with st.chat_message(name="assistant",avatar="images/redhat.png"):
             with st.spinner("Thinking..."):
                 try:
                     response = llm.invoke([HumanMessage(content=prompt)])
@@ -57,12 +58,10 @@ with tab2:
             
     uploaded_file = st.file_uploader("Choose a file")
     if uploaded_file is not None:
+        st.session_state.messages2 = []
         prompt = StringIO(uploaded_file.getvalue().decode("utf-8")).read()
-        st.session_state.messages2.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
         
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar="images/redhat.png"):
             with st.spinner("Thinking..."):
                 try:
                     workflow = AgenticWorkflow(llm)

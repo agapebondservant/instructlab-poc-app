@@ -41,16 +41,19 @@ class AgenticWorkflow():
         # agents
         searcher_agent = self.create_agent(llm, [google_search_tool], templateprompts.searcher_template)
         analyst_agent = self.create_agent(llm, [], templateprompts.analyst_template)
+        judge_agent = self.create_agent(llm, [], templateprompts.judge_template)
         
         # nodes
         searcher_node = functools.partial(self.agent_node, agent=searcher_agent, name="Search Agent")
         analyst_node = functools.partial(self.agent_node, agent=analyst_agent, name="Analyst Agent")
+        judge_node = functools.partial(self.agent_node, agent=judge_agent, name="Judge Agent")
         tool_node = ToolNode([google_search_tool])
     
         # add nodes
         self.workflow.add_node("searcher", searcher_node)
         self.workflow.add_node("analyst", analyst_node)
         self.workflow.add_node("tools", tool_node)
+        self.workflow.add_node("judge", judge_node)
         
         # add entrypoint
         self.workflow.set_entry_point("analyst")
@@ -59,6 +62,7 @@ class AgenticWorkflow():
         self.workflow.add_conditional_edges("searcher", self.should_search)
         self.workflow.add_conditional_edges("analyst", self.should_submit)
         self.workflow.add_edge("tools", "searcher")
+        self.workflow.add_edge("judge", END)
         
         # compile the workflow into a graph
         checkpointer = MemorySaver()
@@ -70,7 +74,8 @@ class AgenticWorkflow():
         try:
             for event in self.graph.stream({"messages": [HumanMessage(content=prompt)]}, config, stream_mode="values"):
                 response_content = event['messages'][-1].content
-                st.markdown(response_content)
+                with st.container(height=300):
+                    st.markdown(response_content)
                 st.session_state.messages2.append({"role": "assistant", "content": response_content})
         except Exception as e:
             print(f"\n\nErrors generating response:\n===============\n {str(e)}")
@@ -110,9 +115,9 @@ class AgenticWorkflow():
         else:
           return "analyst"
         
-    def should_submit(self, state) -> Literal['searcher', END]:
-        if len(state['messages']) and 'DONE' in state['messages'][-1].content:
-          return END
+    def should_submit(self, state) -> Literal['searcher', 'judge']:
+        if len(state['messages']) and '#### NEXT' in state['messages'][-1].content:
+          return "judge"
         else:
           return "searcher"
 
