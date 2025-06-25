@@ -2,7 +2,6 @@ from typing import TypedDict, Literal
 import json
 import random
 from langgraph.graph import END, StateGraph
-from IPython.display import Image, display
 from langchain_core.runnables.graph import CurveStyle, MermaidDrawMethod
 from langchain_core.messages import HumanMessage
 import os
