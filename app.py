@@ -17,7 +17,7 @@ tab1, tab2 = st.tabs(["Chat", "Agentic"])
 try:
     llm = ChatOpenAI(
         temperature=0,
-        model="granite-3-8b-instruct",
+        model=os.getenv("MODEL_ID"),
         request_timeout=240
     )
 except Exception as e:
@@ -59,7 +59,11 @@ with tab2:
     uploaded_file = st.file_uploader("Choose a file")
     if uploaded_file is not None:
         st.session_state.messages2 = []
-        prompt = StringIO(uploaded_file.getvalue().decode("utf-8")).read()
+        try:
+            prompt = StringIO(uploaded_file.getvalue().decode("utf-8")).read()
+        except Exception as e:
+            st.error(f"Error: {str(e)}")
+            traceback.print_exc()
         
         with st.chat_message("assistant", avatar="images/redhat.png"):
             with st.spinner("Thinking..."):
