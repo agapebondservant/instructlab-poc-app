@@ -1,9 +1,6 @@
 # Sample Generative / Agentic AI App
 
-<picture>
-  <source srcset="images/video.webp" type="image/webp">
-  <img src="images/video.png" alt="Watch">
-</picture>
+<img src="images/video.png" width="50%">
 
 
 To run the app locally:
