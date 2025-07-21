@@ -35,7 +35,7 @@ To run the app on Openshift:
 
 For demonstrations:
 1. Should support any type of logfile. For demonstration purposes, try to stick to smaller files; 
-see the sample_logs directory for a good sample set.
+see the `sample_logs` directory for a good sample set.
 
 OTHER NOTES:
 * Tested with python 3.11, 3.12
