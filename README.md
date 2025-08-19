@@ -1,14 +1,49 @@
 # Sample Generative / Agentic AI App
 
-<img src="images/video.png" width="50%">
+This app provides an extensible blueprint for creating simple GenAI and/or Agentic AI demos with Streamlit on Openshift AI.
 
+It consists of the following tabs:
+
+* Chatbot (GenAI)
+Simple virtual assistant; potential demos include
+	* Question answering
+	* Machine translation
+
+* Analyzer Agent (Agentic AI)
+Simple agentic app template for demonstrating text mining use cases; potential demos include
+	* <a href="#">Log analysis (current)</a>
+	* <a href="https://github.com/agapebondservant/salesforce_poc_app.git" target="_blank">Service ticket automation / routing</a>
+	* Fraud detection
+	* Survey analysis
+	* Topic modeling
+	* Sentiment analysis
+	* Customer feedback analysis
+	* Code refactoring analysis
+	* etc.
+
+# Customizing the App
+
+<img src="images/workflow.png" width="20%">
+
+To customize the app template for your own use case:
+* Review the workflow above (may also view notebooks <a href="https://github.com/agapebondservant/instruct-lab-pocs/tree/main/notebooks" target="_blank">here</a>)
+* Update the prompt templates in `templateprompts.py`:
+	* `analyst_template` provides comprehensive analysis of the uploaded file
+	* `searcher_template` searches the web for revelant links to include in the final result
+	* `judge_template` provides a final classification / routing decision based on the analyzer's feedback
+* Give your app a name: `APP_NAME=<fill in the name of your app>`
+* Update the `APP_DESCRIPTION` in the .env file as appropriate
+* (Any other desired updates)
+
+# Deploying / Running
 
 To run the app locally:
   1. Create an .env file with necessary environment variables for the app - use `.env-template` as a base template
   2. Set up a virtual environment: `python3 -m venv venv` (tested with python 3.11, 3.12)
-  3. Install Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
-  4. Install dependencies: `pip install -r requirements.txt`
-  5. Start the app: `python3 -m streamlit run app.py`
+  3. Activate the virtual environment: `source venv/bin/activate`
+  4. Install Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+  5. Install dependencies: `pip install -r requirements.txt`
+  6. Start the app: `python3 -m streamlit run app.py`
   
 To run the app on Openshift:
   1. Create an .env file with necessary environment variables for the app - use `.env-template` as a base template

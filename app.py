@@ -51,7 +51,7 @@ with tab1:
                     st.error(f"Error: {str(e)}")
 with tab2:
     st.title("🤖 Simple Agentic App")
-    st.write("This section allows you to upload your logs for human-like analysis.")
+    st.write(os.getenv("APP_DESCRIPTION"))
     
     if "messages2" not in st.session_state:
         st.session_state.messages2 = []
