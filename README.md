@@ -1,5 +1,7 @@
 # Sample Generative / Agentic AI App
 
+<img src="images/video.png" width="50%">
+
 This app provides an extensible blueprint for creating simple GenAI and/or Agentic AI demos with Streamlit on Openshift AI.
 
 It consists of the following tabs:
