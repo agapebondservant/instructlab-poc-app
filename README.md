@@ -26,7 +26,7 @@ Simple agentic app template for demonstrating text mining use cases; potential d
 <img src="images/workflow.png" width="20%">
 
 To customize the app template for your own use case:
-* Review the workflow above (may also view notebooks <a href="https://github.com/agapebondservant/instruct-lab-pocs/tree/main/notebooks" target="_blank">here</a>)
+* Review the workflow above (may also view notebooks <a href="https://github.com/agapebondservant/instruct-lab-pocs/blob/main/notebooks/log_analyzer.ipynb" target="_blank">here</a>)
 * Update the prompt templates in `templateprompts.py`:
 	* `analyst_template` provides comprehensive analysis of the uploaded file
 	* `searcher_template` searches the web for revelant links to include in the final result
